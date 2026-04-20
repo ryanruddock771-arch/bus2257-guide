@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-gray-900 bg-white antialiased;
+  }
+
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .content-display {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-200;
+  }
+
+  .card:hover {
+    @apply shadow-md -translate-y-0.5;
+  }
+
+  .btn-primary {
+    @apply bg-western-purple text-white px-6 py-3 rounded-xl font-semibold hover:bg-western-purple-dark transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-ivey-green text-white px-6 py-3 rounded-xl font-semibold hover:bg-ivey-green-mid transition-colors duration-200;
+  }
+
+  .section-header {
+    @apply py-16 px-6 text-center text-white;
+    background: linear-gradient(135deg, #4F2683 0%, #3a1a6e 100%);
+  }
+
+  .section-header-green {
+    @apply py-16 px-6 text-center text-white;
+    background: linear-gradient(135deg, #154733 0%, #0f3326 100%);
+  }
+
+  .badge-purple {
+    @apply inline-block bg-western-purple-light text-western-purple text-sm font-semibold px-3 py-1 rounded-full;
+  }
+
+  .badge-green {
+    @apply inline-block bg-ivey-green-light text-ivey-green text-sm font-semibold px-3 py-1 rounded-full;
+  }
+}
