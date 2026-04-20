@@ -87,23 +87,27 @@ export const defaultContent: SiteContent = {
   },
 }
 
-// ─── KV helpers ────────────────────────────────────────────────────────────────
+// ─── Redis helpers ─────────────────────────────────────────────────────────────
 
-async function getKV() {
+async function getRedis() {
+  const url = process.env.UPSTASH_REDIS_REST_URL
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN
+  if (!url || !token) return null
+
   try {
-    const { kv } = await import('@vercel/kv')
-    return kv
+    const { Redis } = await import('@upstash/redis')
+    return new Redis({ url, token })
   } catch {
     return null
   }
 }
 
 export async function getContent(): Promise<SiteContent> {
-  const kv = await getKV()
-  if (!kv) return defaultContent
+  const redis = await getRedis()
+  if (!redis) return defaultContent
 
   try {
-    const stored = await kv.get<SiteContent>('site_content')
+    const stored = await redis.get<SiteContent>('site_content')
     if (!stored) return defaultContent
     // Merge with defaults so new keys added later still appear
     return { ...defaultContent, ...stored }
@@ -113,11 +117,11 @@ export async function getContent(): Promise<SiteContent> {
 }
 
 export async function saveContent(content: SiteContent): Promise<boolean> {
-  const kv = await getKV()
-  if (!kv) return false
+  const redis = await getRedis()
+  if (!redis) return false
 
   try {
-    await kv.set('site_content', content)
+    await redis.set('site_content', content)
     return true
   } catch {
     return false

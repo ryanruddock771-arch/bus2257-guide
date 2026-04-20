@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { getContent } from '@/lib/content'
 
 export const metadata = {
