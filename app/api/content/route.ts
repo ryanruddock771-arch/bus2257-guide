@@ -80,7 +80,7 @@ export async function POST(req: Request) {
   }
 
   // ── Save ────────────────────────────────────────────────────
-  const ok = await saveContent(validated as Parameters<typeof saveContent>[0])
+  const ok = await saveContent(validated as any)
   if (!ok) {
     return NextResponse.json({ error: 'Save failed' }, { status: 500 })
   }
