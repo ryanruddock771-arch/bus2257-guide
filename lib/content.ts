@@ -108,7 +108,7 @@ export async function getContent(): Promise<SiteContent> {
   if (!redis) return defaultContent
 
   try {
-    const stored = await redis.get<SiteContent>('site_content')
+    const stored = await redis.get('site_content') as SiteContent | null
     if (!stored) return defaultContent
     // Merge with defaults so new keys added later still appear
     return { ...defaultContent, ...stored }
