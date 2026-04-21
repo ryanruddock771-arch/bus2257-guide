@@ -108,7 +108,8 @@ export async function getContent(): Promise<SiteContent> {
   if (!redis) return defaultContent
 
   try {
-    const stored = await redis.get('site_content') as SiteContent | null
+    const raw = await redis.get('site_content')
+const stored = raw ? JSON.parse(raw as string) as SiteContent : null
     if (!stored) return defaultContent
     // Merge with defaults so new keys added later still appear
     return { ...defaultContent, ...stored }
@@ -122,7 +123,7 @@ export async function saveContent(content: SiteContent): Promise<boolean> {
   if (!redis) return false
 
   try {
-    await redis.set('site_content', content)
+    await redis.set('site_content', JSON.stringify(content))
     return true
   } catch {
     return false
