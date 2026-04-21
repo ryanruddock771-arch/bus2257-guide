@@ -94,8 +94,10 @@ async function getRedis() {
   if (!url) return null
 
   try {
-    const { Redis } = await import('@upstash/redis')
-    return Redis.fromEnv()
+    const { createClient } = await import('redis')
+    const client = createClient({ url })
+    await client.connect()
+    return client
   } catch {
     return null
   }
