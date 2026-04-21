@@ -90,13 +90,12 @@ export const defaultContent: SiteContent = {
 // ─── Redis helpers ─────────────────────────────────────────────────────────────
 
 async function getRedis() {
-  const url = process.env.UPSTASH_REDIS_REST_URL
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN
-  if (!url || !token) return null
+  const url = process.env.REDIS_URL
+  if (!url) return null
 
   try {
     const { Redis } = await import('@upstash/redis')
-    return new Redis({ url, token })
+    return Redis.fromEnv()
   } catch {
     return null
   }
