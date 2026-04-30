@@ -53,7 +53,7 @@ export default async function HomePage() {
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section
         className="relative overflow-hidden py-20 px-6 text-white text-center"
-        style={{ background: 'linear-gradient(135deg, #4F2683 0%, #3a1a6e 60%, #154733 100%)' }}
+        style={{ background: 'linear-gradient(135deg, #4F2683 0%, #3d1f7a 35%, #1a6b4a 65%, #154733 100%)' }}
       >
         {/* Decorative circles */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
