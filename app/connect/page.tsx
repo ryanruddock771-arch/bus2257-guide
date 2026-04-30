@@ -66,8 +66,8 @@ export default async function ConnectPage() {
           <ul className="space-y-2 text-sm text-gray-600">
             {[
               'Questions about a specific exam or assessment',
-              'Advice on balancing BUS 2257E with other first-year courses',
-              'Whether to buy or rent the textbook',
+              'Advice on balancing BUS 2257E with other second-year courses',
+              'When should I use the textbook and is it worth it?',
               'Tips for the Feasibility Project',
               'Anything else about navigating the course',
             ].map((item, i) => (
