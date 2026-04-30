@@ -106,24 +106,37 @@ export default async function AssessmentPage({
         )}
 
         {/* Quick stats bar */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <div className="bg-gray-50 rounded-xl p-4 text-center">
-            <div className="text-2xl font-bold" style={{ color: a.color }}>
-              {a.weight}%
+        {a.hasCheatSheet ? (
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-gray-50 rounded-xl p-4 text-center">
+              <div className="text-2xl font-bold" style={{ color: a.color }}>
+                {a.weight}%
+              </div>
+              <div className="text-xs text-gray-500 mt-1">Grade Weight</div>
             </div>
-            <div className="text-xs text-gray-500 mt-1">Grade Weight</div>
-          </div>
-          <div className="bg-gray-50 rounded-xl p-4 text-center">
-            <div className="text-sm font-bold text-gray-700">{a.timing.split(' — ')[0]}</div>
-            <div className="text-xs text-gray-500 mt-1">When</div>
-          </div>
-          <div className="bg-gray-50 rounded-xl p-4 text-center col-span-2 md:col-span-1">
-            <div className="text-sm font-bold text-gray-700">
-              {a.hasCheatSheet ? '✓ Allowed' : '✗ Not Allowed'}
+            <div className="bg-gray-50 rounded-xl p-4 text-center">
+              <div className="text-sm font-bold text-gray-700">{a.timing.split(' — ')[0]}</div>
+              <div className="text-xs text-gray-500 mt-1">When</div>
             </div>
-            <div className="text-xs text-gray-500 mt-1">Cheat Sheet</div>
+            <div className="bg-gray-50 rounded-xl p-4 text-center">
+              <div className="text-sm font-bold text-gray-700">✓ Allowed</div>
+              <div className="text-xs text-gray-500 mt-1">Cheat Sheet</div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto w-full">
+            <div className="bg-gray-50 rounded-xl p-4 text-center">
+              <div className="text-2xl font-bold" style={{ color: a.color }}>
+                {a.weight}%
+              </div>
+              <div className="text-xs text-gray-500 mt-1">Grade Weight</div>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-4 text-center">
+              <div className="text-sm font-bold text-gray-700">{a.timing.split(' — ')[0]}</div>
+              <div className="text-xs text-gray-500 mt-1">When</div>
+            </div>
+          </div>
+        )}
 
         {/* Back link */}
         <div className="text-center pt-2">
