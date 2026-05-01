@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/grading', label: 'Grading' },
-  { href: '/resources', label: 'Resources' },
-  { href: '/connect', label: 'Connect' },
-  { href: '/about', label: 'About' },
+  { href: '/', label: 'Home', color: 'purple' },
+  { href: '/grading', label: 'Grading', color: 'purple' },
+  { href: '/resources', label: 'Resources', color: 'green' },
+  { href: '/connect', label: 'Connect', color: 'purple' },
+  { href: '/about', label: 'About', color: 'green' },
 ]
 
 export default function Navbar() {
@@ -45,7 +45,9 @@ export default function Navbar() {
                   href={link.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                     active
-                      ? 'bg-western-purple text-white'
+                      ? link.color === 'green'
+                        ? 'bg-ivey-green text-white'
+                        : 'bg-western-purple text-white'
                       : 'text-western-purple hover:bg-western-purple-light hover:text-western-purple'
                   }`}
                 >
@@ -90,7 +92,9 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     active
-                      ? 'bg-western-purple text-white'
+                      ? link.color === 'green'
+                        ? 'bg-ivey-green text-white'
+                        : 'bg-western-purple text-white'
                       : 'text-western-purple hover:bg-western-purple-light'
                   }`}
                 >
