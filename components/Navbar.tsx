@@ -17,16 +17,16 @@ export default function Navbar() {
   const pathname = usePathname()
 
   return (
-    <nav className="bg-western-purple shadow-lg sticky top-0 z-50">
+    <nav className="bg-white shadow-md border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo / Brand */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex flex-col leading-tight">
-              <span className="text-white font-serif font-bold text-lg tracking-tight group-hover:text-purple-200 transition-colors">
+              <span className="text-western-purple font-serif font-bold text-lg tracking-tight group-hover:text-western-purple-mid transition-colors">
                 BUS 2257E
               </span>
-              <span className="text-purple-300 text-xs font-medium tracking-widest uppercase">
+              <span className="text-western-purple text-xs font-medium tracking-widest uppercase opacity-70">
                 Western · Ivey
               </span>
             </div>
@@ -45,8 +45,8 @@ export default function Navbar() {
                   href={link.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                     active
-                      ? 'bg-white text-western-purple'
-                      : 'text-purple-100 hover:bg-western-purple-mid hover:text-white'
+                      ? 'bg-western-purple text-white'
+                      : 'text-western-purple hover:bg-western-purple-light hover:text-western-purple'
                   }`}
                 >
                   {link.label}
@@ -57,7 +57,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2 rounded-lg text-purple-100 hover:bg-western-purple-mid transition-colors"
+            className="md:hidden p-2 rounded-lg text-western-purple hover:bg-western-purple-light transition-colors"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
@@ -76,7 +76,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-purple-700 bg-western-purple-dark">
+        <div className="md:hidden border-t border-gray-100 bg-white">
           <div className="px-4 py-3 space-y-1">
             {links.map((link) => {
               const active =
@@ -90,8 +90,8 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     active
-                      ? 'bg-white text-western-purple'
-                      : 'text-purple-100 hover:bg-western-purple-mid'
+                      ? 'bg-western-purple text-white'
+                      : 'text-western-purple hover:bg-western-purple-light'
                   }`}
                 >
                   {link.label}
