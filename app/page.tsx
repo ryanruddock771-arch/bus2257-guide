@@ -78,7 +78,7 @@ export default async function HomePage() {
           </h1>
 
           <p className="text-purple-100 text-lg md:text-xl mb-8 leading-relaxed max-w-2xl mx-auto">
-            An upper-year Ivey student&apos;s straight-talk advice on Financial &amp;
+            An upper-year Western student&apos;s straight-talk advice on Financial &amp;
             Managerial Accounting — so you know exactly what you&apos;re walking into.
           </p>
 
