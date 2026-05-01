@@ -4,6 +4,7 @@ import Link from 'next/link'
 import GradeDonut from '@/components/GradeDonut'
 import Timeline from '@/components/Timeline'
 import { getContent } from '@/lib/content'
+import { recordPageView } from '@/lib/analytics'
 
 const navCards = [
   {
@@ -45,6 +46,7 @@ const navCards = [
 ]
 
 export default async function HomePage() {
+  await recordPageView('home')
   const content = await getContent()
   const tips = content.homepage_survival_tips
 

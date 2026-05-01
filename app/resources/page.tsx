@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 
 import { getContent } from '@/lib/content'
+import { recordPageView } from '@/lib/analytics'
 
 export const metadata = {
   title: 'Resources | BUS 2257E Guide',
@@ -47,6 +48,7 @@ function ResourceCard({ title, subtitle, text, fontSize, color, icon }: Resource
 }
 
 export default async function ResourcesPage() {
+  await recordPageView('resources')
   const content = await getContent()
 
   return (

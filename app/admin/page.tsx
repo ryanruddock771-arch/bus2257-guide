@@ -73,6 +73,12 @@ export default function AdminPage() {
   const [saving, setSaving] = useState(false)
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saved' | 'error'>('idle')
   const [loading, setLoading] = useState(false)
+  const [analytics, setAnalytics] = useState<{
+    total: number
+    today: number
+    yesterday: number
+    pages: { page: string; views: number }[]
+  } | null>(null)
 
   // Check existing auth cookie on load
   useEffect(() => {
@@ -82,6 +88,7 @@ export default function AdminPage() {
         if (d.ok) {
           setAuthed(true)
           loadContent()
+          loadAnalytics()
         }
       })
       .catch(() => {})
@@ -98,6 +105,7 @@ export default function AdminPage() {
     if (res.ok) {
       setAuthed(true)
       loadContent()
+      loadAnalytics()
     } else {
       setAuthError('Incorrect password. Try again.')
     }
@@ -109,6 +117,13 @@ export default function AdminPage() {
     const data = await res.json()
     setContent(data)
     setLoading(false)
+  }
+
+  async function loadAnalytics() {
+    try {
+      const res = await fetch('/api/analytics')
+      if (res.ok) setAnalytics(await res.json())
+    } catch {}
   }
 
   async function handleSaveSection(key: keyof SiteContent) {
@@ -249,6 +264,71 @@ export default function AdminPage() {
         {/* Editor pane */}
         <div className="flex-1 overflow-y-auto p-6">
           <div className="max-w-3xl mx-auto">
+
+            {/* Analytics dashboard */}
+            {analytics && (
+              <div className="mb-8 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                  <div>
+                    <h2 className="font-serif text-base font-bold text-gray-900">Site Analytics</h2>
+                    <p className="text-gray-400 text-xs mt-0.5">Page views tracked since launch</p>
+                  </div>
+                  <button
+                    onClick={loadAnalytics}
+                    className="text-xs text-western-purple hover:underline"
+                  >
+                    Refresh
+                  </button>
+                </div>
+
+                {/* Summary stats */}
+                <div className="grid grid-cols-3 divide-x divide-gray-100">
+                  <div className="px-6 py-4 text-center">
+                    <div className="text-2xl font-bold text-western-purple">{analytics.total.toLocaleString()}</div>
+                    <div className="text-xs text-gray-400 mt-1">All-Time Views</div>
+                  </div>
+                  <div className="px-6 py-4 text-center">
+                    <div className="text-2xl font-bold text-ivey-green">{analytics.today.toLocaleString()}</div>
+                    <div className="text-xs text-gray-400 mt-1">Today</div>
+                  </div>
+                  <div className="px-6 py-4 text-center">
+                    <div className="text-2xl font-bold text-gray-500">{analytics.yesterday.toLocaleString()}</div>
+                    <div className="text-xs text-gray-400 mt-1">Yesterday</div>
+                  </div>
+                </div>
+
+                {/* Per-page breakdown */}
+                {analytics.pages.length > 0 && (
+                  <div className="px-6 py-4 border-t border-gray-100">
+                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">By Page</p>
+                    <div className="space-y-2">
+                      {analytics.pages
+                        .sort((a, b) => b.views - a.views)
+                        .map(({ page, views }) => {
+                          const pct = analytics.total > 0 ? Math.round((views / analytics.total) * 100) : 0
+                          return (
+                            <div key={page} className="flex items-center gap-3">
+                              <span className="text-xs text-gray-500 w-32 capitalize shrink-0">
+                                {page.replace(/-/g, ' ')}
+                              </span>
+                              <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                <div
+                                  className="h-full bg-western-purple rounded-full"
+                                  style={{ width: `${pct}%` }}
+                                />
+                              </div>
+                              <span className="text-xs font-semibold text-gray-700 w-10 text-right shrink-0">
+                                {views.toLocaleString()}
+                              </span>
+                            </div>
+                          )
+                        })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="mb-5">
               <h2 className="font-serif text-xl font-bold text-gray-900">
                 {SECTION_LABELS[activeKey]}

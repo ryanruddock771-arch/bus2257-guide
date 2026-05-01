@@ -1,12 +1,14 @@
 export const dynamic = 'force-dynamic'
 
 import { getContent } from '@/lib/content'
+import { recordPageView } from '@/lib/analytics'
 
 export const metadata = {
   title: 'Connect | BUS 2257E Guide',
 }
 
 export default async function ConnectPage() {
+  await recordPageView('connect')
   const content = await getContent()
   const msg = content.connect_message
 

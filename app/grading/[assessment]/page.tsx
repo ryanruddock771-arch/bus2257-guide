@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { assessments, getAssessment } from '@/lib/assessments'
 import { getContent } from '@/lib/content'
+import { recordPageView } from '@/lib/analytics'
 
 export async function generateStaticParams() {
   return assessments.map((a) => ({ assessment: a.slug }))
@@ -23,6 +24,7 @@ export default async function AssessmentPage({
   const a = getAssessment(params.assessment)
   if (!a) notFound()
 
+  await recordPageView('grading-detail')
   const content = await getContent()
   const advice = content[a.contentKey]
   const cheatSheet = a.cheatSheetKey ? content[a.cheatSheetKey] : null

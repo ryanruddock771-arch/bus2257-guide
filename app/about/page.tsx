@@ -1,12 +1,14 @@
 export const dynamic = 'force-dynamic'
 
 import { getContent } from '@/lib/content'
+import { recordPageView } from '@/lib/analytics'
 
 export const metadata = {
   title: 'About | BUS 2257E Guide',
 }
 
 export default async function AboutPage() {
+  await recordPageView('about')
   const content = await getContent()
 
   const sections = [
