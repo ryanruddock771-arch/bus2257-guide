@@ -77,7 +77,7 @@ export default function AdminPage() {
     total: number
     today: number
     yesterday: number
-    pages: { page: string; views: number }[]
+    pages: { name: string; views: number }[]
   } | null>(null)
 
   // Check existing auth cookie on load
@@ -304,12 +304,12 @@ export default function AdminPage() {
                     <div className="space-y-2">
                       {analytics.pages
                         .sort((a, b) => b.views - a.views)
-                        .map(({ page, views }) => {
+                        .map(({ name, views }) => {
                           const pct = analytics.total > 0 ? Math.round((views / analytics.total) * 100) : 0
                           return (
-                            <div key={page} className="flex items-center gap-3">
+                            <div key={name} className="flex items-center gap-3">
                               <span className="text-xs text-gray-500 w-32 capitalize shrink-0">
-                                {page.replace(/-/g, ' ')}
+                                {name}
                               </span>
                               <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
                                 <div
