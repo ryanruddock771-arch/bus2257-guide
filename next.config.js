@@ -4,7 +4,7 @@ const securityHeaders = [
   // Prevent MIME-type sniffing
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   // Block this site from being embedded in iframes elsewhere (clickjacking)
-  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+  { key: 'X-Frame-Options', value: 'ALLOW-FROM https://vercel.com' },
   // Enforce HTTPS for 2 years, include subdomains
   { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
   // Control referrer information sent to other sites
@@ -23,7 +23,7 @@ const securityHeaders = [
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: https:",
       "connect-src 'self'",
-      "frame-ancestors 'none'",              // No iframes embedding this site
+      "frame-ancestors 'self' https://vercel.com",              // No iframes embedding this site
     ].join('; '),
   },
 ]
