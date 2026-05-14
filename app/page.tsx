@@ -88,7 +88,7 @@ export default async function HomePage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/grading"
-              className="bg-white text-western-purple px-8 py-3 rounded-xl font-bold hover:bg-purple-50 transition-colors shadow-lg"
+              className="bg-white/10 border border-white/30 text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/20 transition-colors backdrop-blur-sm"
             >
               See the Grading Breakdown
             </Link>
