@@ -4,7 +4,7 @@ import Link from 'next/link'
 import GradeDonut from '@/components/GradeDonut'
 import Timeline from '@/components/Timeline'
 import { getContent } from '@/lib/content'
-import { recordPageView } from '@/lib/analytics'
+import { recordPageView, getAnalytics } from '@/lib/analytics'
 
 const navCards = [
   {
@@ -47,14 +47,15 @@ const navCards = [
 
 export default async function HomePage() {
   await recordPageView('home')
-  const content = await getContent()
+  const [content, analytics] = await Promise.all([getContent(), getAnalytics()])
   const tips = content.homepage_survival_tips
+  const totalViews = analytics?.total ?? 0
 
   return (
     <div>
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden py-20 px-6 text-white text-center"
+        className="relative overflow-hidden pt-20 pb-24 px-6 text-white text-center"
         style={{ background: 'linear-gradient(135deg, #4F2683 0%, #3d1f7a 35%, #1a6b4a 65%, #154733 100%)' }}
       >
         {/* Decorative circles */}
@@ -98,6 +99,19 @@ export default async function HomePage() {
               About Me
             </Link>
           </div>
+
+          {totalViews > 0 && (
+            <div className="mt-8 flex justify-center">
+              <div className="bg-white rounded-full px-7 py-3 shadow-lg flex items-center gap-2">
+                <span className="text-base font-bold" style={{ color: '#4F2683' }}>
+                  {totalViews.toLocaleString()}
+                </span>
+                <span className="text-gray-600 font-medium text-sm">
+                  Western Students Helped and Counting!
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
